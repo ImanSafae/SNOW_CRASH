@@ -1,7 +1,8 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-int main() {
+int main()
+{
 	pid_t child = fork();
 
 	if (child) {
