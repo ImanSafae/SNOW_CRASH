@@ -1,1 +1,3 @@
+## **Level02 - Solution**
+
 In the `level02` directory, there is a file called `level02.pcap`. We can transfer it via SSH using the `scp` command to the host machine. This file is a network packet capture and contains data exchanged between two machines. By transferring it to the host machine using `scp`, we can analyze it with **Wireshark**, where we discover a login attempt as well as a password: `Password: ft_wandr...NDRel.L0L`. When displaying this in hexadecimal, we can see that the dots actually correspond to `DEL`, indicating the deletion of a character. The user intended to type `ft_waNDReLOL`. This password allows us to access the intermediate level `flag03` and retrieve the flag located there.
