@@ -1,3 +1,5 @@
+## **Level10 - Solution**
+
 Dans ce niveau, on trouve un executable level10 ainsi qu'un fichier token sur lequel on n'a pas d'acces.
 L'executable demande une IP et s'y connecte sur le port 6969 pour y envoyer un fichier. On cree donc un serveur qui ecoute sur le port 6969. L'executable teste l'acces au fichier donne avec la fonction access, ppuis l'ouvre un peu plus bas avec la fonction open.
 L'idee est donc de remplacer le fichier entre ces 2 verifications.
