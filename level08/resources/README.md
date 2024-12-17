@@ -1,10 +1,23 @@
-Ce nouveau home contient encore un executable intitule level08 et un fichier "token". Lorsqu'on execute le binaire sans argument, il demande un nom de fichier.
-En le decompilant avec Ghidra, on obtient un code source avec un main particulierement interessant : cet executable lira dans le fichier qui lui est envoye et affichera le contenu, mais il contient une verification. Si le fichier qui lu iest envoye s'appelle "token", il affiche une erreur indiquant qu'on n'a pas le droit de lire ce fichier. Evidemment, cela serait simple si l'on pouvait renommer le fichier, mais ses droits sont restreints et ne nous permettent pas cette action.
-Il suffit donc de creer un lien symbolique dans l'un des rares fichiers de la machine ou nous avons le droit de le faire (j'ai choisi ici /var/tmp) et d'y creer ce lien avec la commande
-ln -sf ~/token /var/tmp/tok
-On prend bien garde a ne pas inclure la chaine "token" dans le nom du lien symbolique.
-On execute ensuite simplement le binaire level08 avec le chemin du lien symbolique :
-./level08 /var/tmp/tok
-On obtient le token suivant : quif5eloekouj29ke0vouxean
-Celui-ci permet de se connecter au level intermediaire flag08 et d'y recuperer le flag.
+## **Level08 - Solution**
 
+In the home directory of level 08, there is an executable file called `level08` and a file named `token`. When the binary is executed without any arguments, it asks for a filename.
+
+Upon decompiling the binary with Ghidra, we find a particularly interesting `main` function. This executable will read the contents of the file provided to it and display it. However, there is a check: if the file being read is named `token`, it will display an error indicating that you do not have permission to read this file. 
+
+Of course, it would be easy to bypass this if we could rename the file, but its permissions are restricted, and we are unable to perform this action.
+
+The solution is to create a symbolic link in one of the few locations where we have permission to do so (in this case, `/var/tmp`). To create the symbolic link, run the following command:
+
+```bash
+ln -sf ~/token /var/tmp/tok
+```
+
+Be careful not to include the string "token" in the name of the symbolic link.
+
+Next, simply execute the level08 binary with the path to the symbolic link:
+```
+./level08 /var/tmp/tok
+```
+This will return the following token: quif5eloekouj29ke0vouxean.
+
+This token allows you to connect to the intermediate level flag08 and retrieve the flag.
