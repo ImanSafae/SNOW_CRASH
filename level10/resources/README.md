@@ -1,10 +1,21 @@
 ## **Level10 - Solution**
 
-Dans ce niveau, on trouve un executable level10 ainsi qu'un fichier token sur lequel on n'a pas d'acces.
-L'executable demande une IP et s'y connecte sur le port 6969 pour y envoyer un fichier. On cree donc un serveur qui ecoute sur le port 6969. L'executable teste l'acces au fichier donne avec la fonction access, ppuis l'ouvre un peu plus bas avec la fonction open.
-L'idee est donc de remplacer le fichier entre ces 2 verifications.
-On procede avec un lien symbolique : dans un premier temps, celui-ci pointe sur un fichier target que l'on a cree (et qui passe donc la verification d'access). Puis, ce lien pointe vers token avant d'arriver a open.
- 
-On cree donc un programme en C qui change le lien en boucle, ainsi que level10.
-Avec de la chance nombre d'essais font le check d'access pendant que le lien symbolique pointe sur un fichier autorisé, et avant le open, le lien aura été modifié pour pointer sur token.
-Cela resulte en : le premier check a ete validé, le deuxieme aussi et le contenu de token est envoyé au serveur. On obtient ce flag : woupa2yuojeeaaed06riuj63c , qui nous permet de nous connecter au niveau intermediaire flag10 et d'obtenir le flag du level11.
+In this level, we find an executable called `level10` and a file named `token`, which we don't have access to.
+
+The executable asks for an IP and connects to port 6969 to send a file. To proceed, we create a server that listens on port 6969. The executable checks file access with the `access` function and then opens the file later with the `open` function.
+
+The idea is to replace the file between these two checks.
+
+We proceed with a symbolic link: initially, it points to a target file that passes the access check. Then, the link points to the `token` file before the `open` function.
+
+We create a C program that changes the symbolic link in a loop, along with the `level10` executable. 
+
+With some luck, after several attempts, the access check will pass while the symbolic link points to an allowed file, and before the `open` function, the link will have been modified to point to `token`.
+
+This results in: the first check is passed, the second check also succeeds, and the content of `token` is sent to the server. We obtain the flag: 
+
+`woupa2yuojeeaaed06riuj63c`
+
+This allows us to connect to the intermediate level `flag10` and retrieve the flag for level 11.
+
+
