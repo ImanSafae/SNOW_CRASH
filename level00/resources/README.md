@@ -1,4 +1,4 @@
-### **Flag00 - Solution**
+## **Level00 - Solution**
 
 By executing `find / -user flag00`, we get a list of files owned by the user `flag00`. There are two files:
 
