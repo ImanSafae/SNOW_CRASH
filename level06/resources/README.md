@@ -1,9 +1,28 @@
-Dans ce niveau, le dossier home contiemt un script level06 et un fichier level06.php.
-Le script etablit les privileges de flag06 et appelle le fichier level06.php avec en argument un nom de chemin vers un fichier.
-Le fichier PHP quant a lui, ouvre ce fichier et lit son contenu, et recupere grace a une regex toute expression de la forme [x {contenu}]. Il utilise la fonction preg_replace avec le modificateur /e ; celui-ci est deprecie pour des raisons de securite, car il permet d'executer la string parsee comme du code (et permet donc une injection de code, ce que nous allons exploiter ici).
-La fonction remplace le donc [x {contenu}] par y({contenu}), y etant une fonction definie dans le fichier qui remplace les "." par des " x " et les "@" par des " y" avant de renvoyer le resultat et de le print. Le remplacement nous importe peu : l'important ici est que le modificateur /e permet d'executer du code, le tout avec les privileges de flag06.
-La string finale qui sera executee, donc y({contenu}), appellera la fonction y mais nous pourrons faire en sorte de jouer des priorites afin de faire executer le code dans {contenu} avant l'appel a la fonction y ; il faut pour cela remplacer le contenu par une variable avec la syntaxe PHP : {${variable}}
-Le code gerera d'abord la variable puis l'appel a la fonction. Ici, la variable sera donc le resultat de getflag, que nous souhaitons finir par print.
-Donc nous creons un fichier qui contient :
+## Level 06
+
+In this level, the `home` folder contains two files: a script `level06` and a PHP file `level06.php`.
+
+### Step 1: Script behavior
+The script sets the privileges of `flag06` and then calls the `level06.php` file with a file path as an argument.
+
+### Step 2: PHP file behavior
+The PHP file opens the specified file and reads its content. It uses a regex to retrieve any content in the format `[x {content}]`. It uses the deprecated `/e` modifier in `preg_replace`, which allows executing the parsed string as code (leading to a code injection vulnerability).
+
+The function replaces `[x {content}]` with `y({content})`. The `y()` function replaces the periods (`.`) with " x " and the "@" symbols with " y", then returns the result and prints it. This part is not important for us, but the fact that the `/e` modifier allows code execution is key.
+
+### Step 3: Code injection
+We can exploit the `/e` modifier to execute arbitrary PHP code with the privileges of `flag06`. The final string that will be executed, `y({content})`, calls the `y` function. However, we can manipulate the order of operations to execute the code inside `{content}` before calling the `y` function.
+
+To do this, we need to replace the content with a PHP variable using the syntax `{${variable}}`. This causes the code to first evaluate the variable, and then call the `y` function.
+
+### Step 4: Final payload
+We want to execute the `getflag` command and print the result. So, we create a file containing:
+
+```
 [x {${exec(getflag)}}]
-La fonction va executer en priorite exec(getflag) puis envoyer son resultat a la fonction y pour y remplacer ce qui doit etre remplace, le renvoyer puis le print.
+```
+
+The function will first execute `exec(getflag)`, then send the result to the `y` function for further processing, and finally print the result.
+
+### Conclusion
+By exploiting the vulnerable use of `preg_replace` with the `/e` modifier, we can execute commands with `flag06`'s privileges and obtain the flag.
