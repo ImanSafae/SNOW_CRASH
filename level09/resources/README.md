@@ -1,7 +1,5 @@
 ## **Level09 - Solution**
 
-## Level 09
-
 In this level, we find a new binary called `level09` and a file named `token` in the home directory. This time, we have permission to read the `token` file and display its contents, which contain non-printable characters.
 
 As for the executable, we quickly realize that it requires a string argument and returns a string where each character has been shifted by its index according to the ASCII table. 
