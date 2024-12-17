@@ -1,4 +1,11 @@
-Ce niveau contient un binaire level13. Lorsqu'on l'exécute, il affiche :
-UID 2013 started us but we we expect 4242
-On peut décompiler ce binaire et voir que celui-ci vérifie en effet le UID de l'utilisateur : s'il ne vaut pas 4242, il affiche ce message et exit. Autrement, il appelle une fonction avec pour argument une string longue, effectue plusieurs opérations sur cette string en remplacant certains caractères. Il print ensuite le résultat final.
-On peut donc récupérer ce code en enlevant la vérification initiale. Cela nous print un token qui permet d'accéder au niveau suivant.
+## **Level13 - Solution**
+
+## UID Check and String Manipulation
+
+This level contains a binary `level13`. When executed, it displays:
+
+`UID 2013 started us but we expect 4242`
+
+We can decompile the binary and observe that it checks the user's UID: if it isn't `4242`, the message is displayed and the program exits. Otherwise, it calls a function with a long string argument, performs several operations on the string by replacing certain characters, and then prints the final result.
+
+We can bypass the initial UID check, and by doing so, we can retrieve a token that grants access to the next level.
