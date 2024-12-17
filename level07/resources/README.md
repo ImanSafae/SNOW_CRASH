@@ -1,4 +1,15 @@
-Le dossier home du level07 contient un fichier executable level07 qui affiche une fois execute... "level07".
-En le decompilant, on decouvre que celui-ci recupere dans l'environnement la variable LOGNAME et la print. Le fichier est execute avec les privileges de flag07. Ainsi, il suffit de remplacer LOGNAME avec la commande suivante :
+## **Level07 - Solution**
+
+In this level, the home directory contains an executable file called `level07` which, when executed, displays the text "level07". 
+
+By decompiling the binary, we discover that it retrieves the `LOGNAME` environment variable and prints its value. The file is executed with the privileges of `flag07`. Therefore, to exploit this, we simply need to modify the `LOGNAME` environment variable to run the `getflag` command.
+
+To do this, we can execute the following command:
+
+```bash
 export LOGNAME='`getflag`'
-Ceci pour le forcer a executer la commande lorsque getflag est affiche dans la sortie standard. On recupere ainsi le flag du niveau suivant en executant le binaire de nouveau.
+```
+
+This forces the program to execute the `getflag` command when it prints the `LOGNAME` variable to the standard output.
+
+By running the binary again after setting the environment variable, we will retrieve the flag for the next level.
