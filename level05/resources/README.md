@@ -1,4 +1,4 @@
-## Level 05
+## **Level05 - Solution**
 
 When connecting to level 05, the message "You have new mail" appears on the standard output. Upon further investigation, we find a directory `/rofs/var/mail` which contains a file named `level05`. This file corresponds to a cron job:
 
