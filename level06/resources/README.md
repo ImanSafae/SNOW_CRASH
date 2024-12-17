@@ -1,4 +1,4 @@
-## Level 06
+## **Level06 - Solution**
 
 In this level, the `home` folder contains two files: a script `level06` and a PHP file `level06.php`.
 
