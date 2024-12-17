@@ -1,3 +1,5 @@
+## **Level04 - Solution**
+
 In the `home` directory, we find a Perl file called `level04.pl` which seems to correspond to a server listening on port 4747. 
 
 This script retrieves parameters sent to `localhost:4747` and prints them with an `echo`, without any validation or parsing. This lack of security suggests that we can inject code and have it executed, especially since the file is owned and executed by `flag04`, which is the user we are trying to access.
