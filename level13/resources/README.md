@@ -1,7 +1,5 @@
 ## **Level13 - Solution**
 
-## UID Check and String Manipulation
-
 This level contains a binary `level13`. When executed, it displays:
 
 `UID 2013 started us but we expect 4242`
