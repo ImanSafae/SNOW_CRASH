@@ -1,3 +1,5 @@
+## **Level01 - Solution**
+
 While searching the root directory and then the subdirectory `etc/`, we find a file named "passwd". It contains the following line:
 
 `flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash`
