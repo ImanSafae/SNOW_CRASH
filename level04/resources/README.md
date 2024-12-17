@@ -1,4 +1,11 @@
-Dans le dossier home, on retrouve un fichier Perl level04.pl qui semble correspondre a un serveur ecoute sur le port 4747.
-Celui-ci recupere les parametres envoyes sur localhost:4747 et les print avec un echo, sans verification ni parsing. Ce manque de securite suggere que l'on peut injecter du code et le faire executer, d'autant plus que le fichier est possede et execute par flag04, c'est-a-dire l'utilisateur auquel on essaie d'acceder. Il suffit donc de faire un :
-curl "http://localhost:4747/?x=`getflag`"
-Les backticks sont necessaires a l'execution de la commande car sinon le code se contente de "echo" le nom de la commande. Si les backticks ne sont pas pris en compte, il suffit de les encoder avec %60.
+In the `home` directory, we find a Perl file called `level04.pl` which seems to correspond to a server listening on port 4747. 
+
+This script retrieves parameters sent to `localhost:4747` and prints them with an `echo`, without any validation or parsing. This lack of security suggests that we can inject code and have it executed, especially since the file is owned and executed by `flag04`, which is the user we are trying to access.
+
+To exploit this, we simply need to run the following command:
+
+```bash
+curl "http://localhost:4747/?x=\`getflag\`"
+```
+
+The backticks are necessary for the execution of the command, as without them the code would just "echo" the name of the command. If the backticks are not taken into account, they can be encoded with %60.
