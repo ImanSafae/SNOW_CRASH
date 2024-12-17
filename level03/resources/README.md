@@ -1,15 +1,17 @@
-Le dossier home contient un executable intitule level03 qui, une fois, execute, affiche "Exploit me".
-En le decompilant avec Ghidra, on obtient le code source en C qui affiche :
-  v4 = getegid();
-  v5 = geteuid();
-  setresgid(v4, v4, v4);
-  setresuid(v5, v5, v5);
-  return system("/usr/bin/env echo Exploit me");
+The `home` directory contains an executable called `level03`, which, when executed, displays "Exploit me". By decompiling it with **Ghidra**, we obtain the C source code which displays the following:
 
-Avec un "ls -la" sur le dossier home, on constate que c'est flag03 qui possede les droits sur l'executable, c'est-a-dire l'utilisateur auquel on essaie de se connecter afin de lui faire executer un "getflag". Le fichier est execute en son nom. L'ideal serait donc de le manipuler pour lui faire executer getflag ; cependant on ne peut pas changer le code source (cela nous ferait perdre les droits et n'aurait plus d'interet) ni lui passer d'arguments.
-La solution est donc de modifier l'environnement ; en effet le code execute la commande suivante :
-env echo Exploit me
-Il se sert donc de l'environnement pour recuperer echo et lui faire afficher Exploit me. En changeant le path, on peut lui faire recuperer un autre echo : on recree echo dans le dossier courant, il s'agit d'un faux fichier qui contient juste la commande getflag.
-Om ajoute le dossier courant au PATH avec
+```c
+v4 = getegid();
+v5 = geteuid();
+setresgid(v4, v4, v4);
+setresuid(v5, v5, v5);
+return system("/usr/bin/env echo Exploit me");
+```
+With an `ls -la` on the home directory, we can see that it is flag03 who owns the rights to the executable, i.e., the user we are trying to log into in order to make him execute getflag. The file is executed under his name. Ideally, we would manipulate it to make it execute `getflag`, but we cannot change the source code (which would cause us to lose the rights and would no longer be useful), nor can we pass it any arguments.
+
+The solution is to modify the environment. Indeed, the code executes the following command: `env echo Exploit me`. It uses the environment to call echo and make it display "Exploit me". By changing the PATH, we can make it retrieve another echo: we recreate echo in the current directory, which is a fake file containing only the getflag command. We add the current directory to the PATH using:
+
+```
 export PATH=.:$PATH
-De cette facon, la commande ira chercher dans le dossier courant en premier, et y trouvera notre faux echo (il faut veiller a donner les droits d'execution de ce fichier a tous les utilisateurs avant, avec un chmod a+x). Il l'executera a la place du vrai echo, et executera donc en realite getflag. C'est ainsi qu'on obtient le flag du niveau suivant.
+```
+This way, the command will first look in the current directory and find our fake `echo` (be sure to give execution rights to this file for all users first, with `chmod a+x`). It will then execute it instead of the real `echo`, and in fact, will execute `getflag`. This is how we obtain the flag for the next level.
